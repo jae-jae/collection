@@ -1,5 +1,5 @@
 
-![](http://ww1.sinaimg.cn/large/7de3675bgy1fiqiueymyyj209305jabe.jpg)
+<center>![](https://cdn.rawgit.com/jae-jae/_resources/master/img/x2.png)</center>
 
 # collect
  > Use Laravel Collections API in Golang.

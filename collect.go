@@ -11,8 +11,13 @@ type Collecter struct {
 }
 
 func New(value interface{}) *Collecter {
+	//统一数据格式
 	vMap := make(map[reflect.Value]reflect.Value)
-	v := reflect.ValueOf(value)
+	//判断输入值是否是reflect.Value，主要是test会输入这种类型的值
+	v, err := value.(reflect.Value)
+	if !err {
+		v = reflect.ValueOf(value)
+	}
 	switch v.Kind() {
 	case reflect.Array, reflect.Slice:
 		length := v.Len()
@@ -24,7 +29,7 @@ func New(value interface{}) *Collecter {
 			vMap[key] = v.MapIndex(key)
 		}
 	default:
-
+		//@TODO:处理错误类型
 	}
 	return &Collecter{vMap, v.Kind()}
 }

@@ -1,6 +1,7 @@
 package collect
 
 import (
+	"fmt"
 	"reflect"
 	"testing"
 )
@@ -47,4 +48,49 @@ func TestCount(t *testing.T) {
 			}
 		}
 	}
+}
+
+func TestSum(t *testing.T) {
+	var tests []interface{}
+	tests = append(tests, []struct {
+		input []int
+		keys  string
+		cb    func(sum interface{}) bool
+	}{
+		{[]int{11, 22, 33}, "", func(sum interface{}) bool {
+			return sum.(int64) == 66
+		}},
+		{[]int{22, 33, 44, 55}, "", func(sum interface{}) bool {
+			return sum.(int64) == 154
+		}},
+		{[]int{}, "", func(sum interface{}) bool {
+			return sum.(int64) == 0
+		}},
+	})
+
+	for _, g := range tests {
+		gv := reflect.ValueOf(g)
+		l := gv.Len()
+		for i := 0; i < l; i++ {
+			test := gv.Index(i)
+			input := test.FieldByName("input")
+			keys := test.FieldByName("keys").String()
+			cb := test.Interface().(struct{
+				input []int
+				keys  string
+				cb    func(sum interface{}) bool
+			})
+			/*if sum := New(input).Sum(keys); cb(sum) {
+				t.Errorf("sum(%v) = %v", input, sum)
+			}*/
+			//cb.Call([]reflect.Value{reflect.ValueOf(12)})
+
+			//rr := cb.Call([]reflect.Value{reflect.ValueOf(int(11))})
+
+			//cb.Call([]reflect.Value{})
+
+			fmt.Println(input, keys,cb)
+		}
+	}
+
 }

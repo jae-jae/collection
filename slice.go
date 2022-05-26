@@ -85,7 +85,7 @@ func (c *SliceCollection[T]) Get(key int) (T, bool) {
 	return c.data[key], true
 }
 
-// MustGet returns the value for the key.
+// MustGet returns the value for the key or panics if the key does not exist.
 func (c *SliceCollection[T]) MustGet(key int) T {
 	return c.data[key]
 }

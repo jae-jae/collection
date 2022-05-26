@@ -1,6 +1,9 @@
 package collect
 
-import "reflect"
+import (
+	"fmt"
+	"reflect"
+)
 
 // MapCollection is a collection of maps.
 type MapCollection[K comparable, V any] struct {
@@ -79,8 +82,19 @@ func (c *MapCollection[K, V]) Equals(data map[K]V) bool {
 }
 
 // Get returns the value for the key.
-func (c *MapCollection[K, V]) Get(key K) V {
-	return c.data[key]
+func (c *MapCollection[K, V]) Get(key K) (V, bool) {
+	value, ok := c.data[key]
+	return value, ok
+}
+
+// MustGet returns the value for the key or panics if the key does not exist.
+func (c *MapCollection[K, V]) MustGet(key K) V {
+	value, ok := c.data[key]
+	if !ok {
+		panic(fmt.Sprintf("key [%v] not exist", key))
+	}
+
+	return value
 }
 
 // Set sets the value for the key.

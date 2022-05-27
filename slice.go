@@ -154,13 +154,13 @@ func (c *SliceCollection[T]) Map(fn func(i int, value T) T) *SliceCollection[T] 
 
 // Filter iterates over the slice and returns a new slice with the results.
 func (c *SliceCollection[T]) Filter(fn func(i int, value T) bool) *SliceCollection[T] {
+	var values []T
 	for i, value := range c.data {
 		if fn(i, value) {
-			continue
+			values = append(values, value)
 		}
-
-		c.data = append(c.data[:i], c.data[i+1:]...)
 	}
+	c.data = values
 
 	return c
 }

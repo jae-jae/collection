@@ -1,6 +1,9 @@
 package collect
 
-import "reflect"
+import (
+	"math/rand"
+	"reflect"
+)
 
 type SliceCollection[T any] struct {
 	data []T
@@ -180,4 +183,14 @@ func (c *SliceCollection[T]) Chunk(size int) [][]T {
 	}
 
 	return chunks
+}
+
+// Shuffle shuffles the slice.
+func (c *SliceCollection[T]) Shuffle() *SliceCollection[T] {
+	for i := len(c.data) - 1; i > 0; i-- {
+		j := rand.Intn(i + 1)
+		c.data[i], c.data[j] = c.data[j], c.data[i]
+	}
+
+	return c
 }

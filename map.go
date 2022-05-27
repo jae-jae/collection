@@ -19,7 +19,7 @@ func NewMap[K comparable, V any](data map[K]V) *MapCollection[K, V] {
 
 // Keys returns the keys of the collection.
 func (c *MapCollection[K, V]) Keys() *SliceCollection[K] {
-	keys := make([]K, len(c.data))
+	keys := make([]K, 0, len(c.data))
 	for k := range c.data {
 		keys = append(keys, k)
 	}
@@ -29,7 +29,7 @@ func (c *MapCollection[K, V]) Keys() *SliceCollection[K] {
 
 // Values returns the values of the collection.
 func (c *MapCollection[K, V]) Values() *SliceCollection[V] {
-	values := make([]V, len(c.data))
+	values := make([]V, 0, len(c.data))
 	for _, v := range c.data {
 		values = append(values, v)
 	}

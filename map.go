@@ -2,6 +2,7 @@ package collect
 
 import (
 	"fmt"
+	"github.com/jae-jae/collection/internal"
 	"reflect"
 )
 
@@ -214,7 +215,7 @@ func (c *MapCollection[K, V]) Find(fn func(key K, value V) bool) (K, V, bool) {
 		}
 	}
 
-	return zero[K](), zero[V](), false
+	return internal.zero[K](), internal.zero[V](), false
 }
 
 // FindAll returns all items that match the given predicate.

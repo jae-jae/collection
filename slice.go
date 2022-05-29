@@ -1,6 +1,7 @@
 package collect
 
 import (
+	"github.com/jae-jae/collection/internal"
 	"math/rand"
 	"reflect"
 )
@@ -82,7 +83,7 @@ func (c *SliceCollection[T]) HasAnyKey(keys ...int) bool {
 // Get returns the value for the key.
 func (c *SliceCollection[T]) Get(key int) (T, bool) {
 	if !c.HasKey(key) {
-		return zero[T](), false
+		return internal.Zero[T](), false
 	}
 
 	return c.data[key], true
@@ -179,7 +180,7 @@ func (c *SliceCollection[T]) Chunk(size int) [][]T {
 	chunks := make([][]T, 0)
 
 	for i := 0; i < len(c.data); i += size {
-		chunks = append(chunks, c.data[i:min(i+size, len(c.data))])
+		chunks = append(chunks, c.data[i:internal.Min(i+size, len(c.data))])
 	}
 
 	return chunks

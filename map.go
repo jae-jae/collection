@@ -215,7 +215,7 @@ func (c *MapCollection[K, V]) Find(fn func(key K, value V) bool) (K, V, bool) {
 		}
 	}
 
-	return internal.zero[K](), internal.zero[V](), false
+	return internal.Zero[K](), internal.Zero[V](), false
 }
 
 // FindAll returns all items that match the given predicate.
